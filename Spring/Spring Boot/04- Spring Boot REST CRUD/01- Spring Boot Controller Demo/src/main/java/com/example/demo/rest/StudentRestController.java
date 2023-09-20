@@ -1,11 +1,11 @@
 package com.example.demo.rest;
 
 import com.example.demo.model.Student;
+import com.example.demo.model.StudentErrorResponse;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -37,8 +37,41 @@ public class StudentRestController
 
     @GetMapping("students/{ID}")
     // the name of method doesn't matter. Only the URL endpoint matters
-    public Student getStudent(@PathVariable int ID){
+    public Student getStudent(@PathVariable int ID)
+    {
+        if(ID<0 || ID>=students.size()){
+            throw new StudentNotFoundException("student with ID = " +ID + " not found");
+        }
+
         return students.get(ID);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleStudentNotFoundException
+            (StudentNotFoundException exception)
+    {
+        // create a new StudentErrorResponse
+        StudentErrorResponse response = new StudentErrorResponse();
+
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        response.setMessage(exception.getMessage());
+        response.setTimestamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleAllExceptions
+            (Exception exception)
+    {
+        // create a new StudentErrorResponse
+        StudentErrorResponse response = new StudentErrorResponse();
+
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setMessage(exception.getMessage());
+        response.setTimestamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }
