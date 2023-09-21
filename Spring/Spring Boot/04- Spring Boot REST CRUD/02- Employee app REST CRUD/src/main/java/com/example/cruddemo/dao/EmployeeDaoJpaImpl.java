@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// It is called by the Service to fetch the data from database
+// It makes calls to the Database and returns to the Service
 @Repository
 public class EmployeeDaoJpaImpl implements EmployeeDAO
 {
@@ -32,5 +34,29 @@ public class EmployeeDaoJpaImpl implements EmployeeDAO
 
         // return the result
         return employeeList;
+    }
+
+    @Override
+    public Employee findByID(int ID) {
+
+        // Find and return the employee
+        Employee emp = entityManager.find(Employee.class, ID);
+
+        return emp;
+    }
+
+    @Override
+    public Employee save(Employee employee) {
+        Employee emp = entityManager.merge(employee);
+
+        return emp; // return the new employee, as it has the updated id
+    }
+
+    @Override
+    public void deleteByID(int ID) {
+
+        // Find and delete employee
+        Employee emp = entityManager.find(Employee.class, ID);
+        entityManager.remove(emp);
     }
 }

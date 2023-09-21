@@ -2,28 +2,52 @@ package com.example.cruddemo.rest;
 
 import com.example.cruddemo.dao.EmployeeDAO;
 import com.example.cruddemo.entity.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.cruddemo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// This class is fired whenever "api" endpoint hits
+// It calls the Service to get the data
 @RestController
 @RequestMapping("api")
 public class EmployeeRestController {
 
-    private EmployeeDAO employeeDAO;
-    // quick and dirty: inject Employee DAO (using constructor injection)
-    // we should use a service layer in between the DAO and Client
+    private EmployeeService employeeService;
 
-    public EmployeeRestController(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    @Autowired
+    public EmployeeRestController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     // expose "/employees" and return the list of employees
     @GetMapping("employees")
     public List<Employee> findAll(){
-        return employeeDAO.findAll();
+        return employeeService.findAll();
+    }
+
+    // Method to get employee by ID
+    @GetMapping("employees/{employeeID}")
+    public Employee getEmployee(@PathVariable int employeeID){
+        Employee emp = employeeService.findByID(employeeID);
+
+        if(emp==null){
+            throw new RuntimeException("Employee with ID = " + employeeID + " not found!");
+        }
+
+        return emp;
+    }
+
+    @PostMapping("employees")
+    public Employee addEmployee(@RequestBody Employee employee)
+    {
+        //default (bahut samajh ni aaya)
+        employee.setID(0);
+
+        Employee emp = employeeService.save(employee);
+
+        return emp;
     }
 
 }

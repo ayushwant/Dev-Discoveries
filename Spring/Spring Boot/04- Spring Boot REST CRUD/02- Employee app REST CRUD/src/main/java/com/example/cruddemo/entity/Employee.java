@@ -18,6 +18,14 @@ public class Employee
     @Column(name="id")
     private int ID;
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     @Column(name="first_name")
     String firstName;
 
