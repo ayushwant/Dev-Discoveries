@@ -1,6 +1,6 @@
 type Query {
     bookById(id: ID): Book
-#    employees: [Employee]
+    employees: [Employee]
 }
 
 type Book {
@@ -16,9 +16,9 @@ type Author {
     lastName: String
 }
 
-#type Employee{
-#    id: ID
-#    first_name: String
-#    last_name: String
-#    email: String
-#}
+type Employee{
+    id: ID
+    first_name: String
+    last_name: String
+    email: String
+}
