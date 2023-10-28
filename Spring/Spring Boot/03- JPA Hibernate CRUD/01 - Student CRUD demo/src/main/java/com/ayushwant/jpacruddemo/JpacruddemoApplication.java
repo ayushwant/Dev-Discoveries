@@ -29,8 +29,23 @@ public class JpacruddemoApplication {
 //			createMultipleStudents(studentDAO);
 //			System.out.println(getAllStudents(studentDAO));
 
-			System.out.println(getAllStudentsByLastName(studentDAO));
+//			System.out.println(getAllStudentsByLastName(studentDAO));
+			updateStudent(studentDAO);
 		};
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		// retrieve student based on the id: primary key
+		int studentId = 1;
+		Student myStudent = studentDAO.findByID(studentId);
+
+		// change first name to "Scooby"
+		myStudent.setFirstName("Scooby");
+		studentDAO.update(myStudent);
+
+		// display updated student
+		System.out.println("Updated student: " + myStudent);
+		System.out.println(studentDAO.findByID(1));
 	}
 
 	private List<Student> getAllStudentsByLastName(StudentDAO studentDAO) {
