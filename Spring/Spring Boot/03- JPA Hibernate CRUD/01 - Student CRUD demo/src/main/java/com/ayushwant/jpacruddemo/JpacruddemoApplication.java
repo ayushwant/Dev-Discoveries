@@ -26,13 +26,13 @@ public class JpacruddemoApplication {
 		return runner -> {
 			System.out.println("In runner lambda of commandLineRunner");
 
-//			createMultipleStudents(studentDAO);
+			createMultipleStudents(studentDAO);
 //			System.out.println(getAllStudents(studentDAO));
 
 //			System.out.println(getAllStudentsByLastName(studentDAO));
 //			updateStudent(studentDAO);
 
-			deleteStudent(studentDAO);
+//			deleteStudent(studentDAO);
 		};
 	}
 
