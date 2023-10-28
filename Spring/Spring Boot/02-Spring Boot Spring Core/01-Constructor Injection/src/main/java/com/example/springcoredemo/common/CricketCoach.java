@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("CricketKaCoach") // we can also define custom ID of our bean
 public class CricketCoach implements Coach{
 
     // No args constructors are auto called by Spring. Even if we don't specify it explicitly.
