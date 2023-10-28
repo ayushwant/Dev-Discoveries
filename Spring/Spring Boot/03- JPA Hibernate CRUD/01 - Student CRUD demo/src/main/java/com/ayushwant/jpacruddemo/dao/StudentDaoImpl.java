@@ -40,11 +40,15 @@ public class StudentDaoImpl implements StudentDAO {
     @Override
     public List<Student> findAll()
     {
+        System.out.println("In method findAll of StudentDaoImpl");
         TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student", Student.class);
         // Student = Name of JPA Entity, the class name
         // It is NOT the name of the actual database table
+        System.out.println("before getResultList");
 
         List<Student> students = theQuery.getResultList();
+
+        System.out.println("after getResultList");
 
         return students;
     }

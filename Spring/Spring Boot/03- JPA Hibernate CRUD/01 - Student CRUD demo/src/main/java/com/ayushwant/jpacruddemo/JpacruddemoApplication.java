@@ -13,6 +13,7 @@ import java.util.List;
 public class JpacruddemoApplication {
 
 	public static void main(String[] args) {
+		System.out.println("In main method of JpacruddemoApplication");
 		SpringApplication.run(JpacruddemoApplication.class, args);
 	}
 
@@ -24,12 +25,15 @@ public class JpacruddemoApplication {
 		System.out.println("In commandLineRunner method");
 		return runner -> {
 //			createMultipleStudents(studentDAO);
+			System.out.println("In runner lambda of commandLineRunner");
 			System.out.println(getAllStudents(studentDAO));
 		};
 	}
 
 	private List<Student> getAllStudents(StudentDAO studentDAO)
 	{
+		System.out.println("In method findAll of commandLinerRunner method");
+
 		return studentDAO.findAll();
 	}
 

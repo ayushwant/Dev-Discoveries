@@ -24,10 +24,12 @@ public class Student {
     // define constructors
     // a mandatory no-args constructor for any entity class
     public Student() {
-        System.out.println("In student constructor");
+        System.out.println("In no args student constructor, used by Spring");
     }
 
     public Student(String firstName, String lastName, String email) {
+
+        System.out.println("In no args student constructor, used by me to create students");
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -40,6 +42,7 @@ public class Student {
     }
 
     public void setId(int id) {
+        System.out.println("In setID method of Student");
         this.id = id;
     }
 
