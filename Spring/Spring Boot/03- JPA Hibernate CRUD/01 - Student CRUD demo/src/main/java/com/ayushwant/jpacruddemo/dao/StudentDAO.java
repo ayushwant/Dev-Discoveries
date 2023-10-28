@@ -6,4 +6,6 @@ import com.ayushwant.jpacruddemo.entity.Student;
 public interface StudentDAO {
     void save(Student theStudent);
 
+    Student findByID(Integer id);
+
 }
