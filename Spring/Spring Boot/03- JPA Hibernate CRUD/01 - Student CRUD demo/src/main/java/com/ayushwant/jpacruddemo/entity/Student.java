@@ -24,7 +24,7 @@ public class Student {
     // define constructors
     // a mandatory no-args constructor for any entity class
     public Student() {
-
+        System.out.println("In student constructor");
     }
 
     public Student(String firstName, String lastName, String email) {

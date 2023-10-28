@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class JpacruddemoApplication {
 
@@ -17,12 +19,18 @@ public class JpacruddemoApplication {
 	// CommandLineRunner is from Spring.
 	// This will be executed after the Spring beans have been loaded
 	@Bean
-	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) // spring auto injects the StudentDAO for us
+	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) // spring auto-injects the StudentDAO for us when it calls this method
 	{
-
+		System.out.println("In commandLineRunner method");
 		return runner -> {
-			System.out.println(readStudent(studentDAO));
+//			createMultipleStudents(studentDAO);
+			System.out.println(getAllStudents(studentDAO));
 		};
+	}
+
+	private List<Student> getAllStudents(StudentDAO studentDAO)
+	{
+		return studentDAO.findAll();
 	}
 
 	private Student readStudent(StudentDAO studentDAO)
