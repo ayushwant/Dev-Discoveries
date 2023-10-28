@@ -41,7 +41,7 @@ public class StudentDaoImpl implements StudentDAO {
     public List<Student> findAll()
     {
         System.out.println("In method findAll of StudentDaoImpl");
-        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student", Student.class);
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student order by lastName desc", Student.class);
         // Student = Name of JPA Entity, the class name
         // It is NOT the name of the actual database table
         System.out.println("before getResultList");
@@ -51,5 +51,17 @@ public class StudentDaoImpl implements StudentDAO {
         System.out.println("after getResultList");
 
         return students;
+    }
+
+    @Override
+    public List<Student> findByLastName() {
+        TypedQuery<Student> theQuery = entityManager.createQuery(
+                "FROM Student WHERE lastName=:theData", Student.class);
+        // JPQL Named Parameters are prefixed with a colon :
+        // Think of this as a placeholder that is filled in later
+
+        theQuery.setParameter("theData", "Doe"); // we fill in the param here
+
+        return theQuery.getResultList();
     }
 }

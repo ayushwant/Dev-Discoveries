@@ -24,10 +24,17 @@ public class JpacruddemoApplication {
 	{
 		System.out.println("In commandLineRunner method");
 		return runner -> {
-//			createMultipleStudents(studentDAO);
 			System.out.println("In runner lambda of commandLineRunner");
-			System.out.println(getAllStudents(studentDAO));
+
+//			createMultipleStudents(studentDAO);
+//			System.out.println(getAllStudents(studentDAO));
+
+			System.out.println(getAllStudentsByLastName(studentDAO));
 		};
+	}
+
+	private List<Student> getAllStudentsByLastName(StudentDAO studentDAO) {
+		return studentDAO.findByLastName();
 	}
 
 	private List<Student> getAllStudents(StudentDAO studentDAO)
