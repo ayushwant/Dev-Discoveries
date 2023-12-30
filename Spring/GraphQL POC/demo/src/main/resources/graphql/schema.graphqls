@@ -1,6 +1,8 @@
 type Query {
     bookById(id: ID): Book
     employees: [Employee]
+
+    getData: [Tables]
 }
 
 type Book {
@@ -16,9 +18,28 @@ type Author {
     lastName: String
 }
 
+type Phone{
+    id: ID!
+    name: String
+    model: String
+    price: Int
+    brand: String
+
+    # we could also do
+#    brand: PhoneBrand
+}
+
+type PhoneBrand{
+    id: ID!
+    name: String
+}
+
 type Employee{
     id: ID
     first_name: String
     last_name: String
     email: String
 }
+
+
+union Tables = Author | Book | Employee

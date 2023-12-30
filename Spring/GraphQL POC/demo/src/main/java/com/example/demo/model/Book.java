@@ -3,7 +3,7 @@ package com.example.demo.model;
 import java.util.Arrays;
 import java.util.List;
 
-public record Book (String id, String name, int pageCount, String authorId) {
+public record Book (String id, String name, int pageCount, String authorId) implements Tables {
 
     private static List<Book> books = Arrays.asList(
             new Book("book-1", "Effective Java", 416, "author-1"),

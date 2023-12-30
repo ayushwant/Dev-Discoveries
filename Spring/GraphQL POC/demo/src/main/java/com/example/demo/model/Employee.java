@@ -1,25 +1,36 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+//import jakarta.persistence.Entity;
+//import jakarta.persistence.GeneratedValue;
+//import jakarta.persistence.GenerationType;
+//import jakarta.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
-public class Employee
+public class Employee implements Tables
 {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    String id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    Integer id;
     String first_name;
     String last_name;
     String email;
 
-    public String getId() {
+    public Employee() {
+    }
+
+    public Employee( String first_name, String last_name, String email) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
