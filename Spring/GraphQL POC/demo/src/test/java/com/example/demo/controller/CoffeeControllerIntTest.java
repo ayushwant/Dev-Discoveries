@@ -7,6 +7,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Coffee;
 import com.example.demo.model.Size;
 import com.example.demo.service.CoffeeService;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
@@ -17,10 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @GraphQlTest(CoffeeController.class)
-@Import(CoffeeService.class)
+@Import({CoffeeService.class})  //, SessionFactory.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CoffeeControllerIntTest {
 
+    @Autowired
+    SessionFactory sessionFactory;
     @Autowired
     GraphQlTester graphQlTester;
 

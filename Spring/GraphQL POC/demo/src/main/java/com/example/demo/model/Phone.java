@@ -5,10 +5,13 @@ import java.util.List;
 
 public class Phone
 {
-    Integer id, brandId, price;
+    Integer id;
+    public Integer brandId;
+    Integer price;
     String name, model;
 
     public Phone(Integer id, Integer brandId, Integer price, String name, String model) {
+        System.out.printf("Phone constructor: %d %d %d %s %s\n", id, brandId, price, name, model);
         this.id = id;
         this.brandId = brandId;
         this.price = price;

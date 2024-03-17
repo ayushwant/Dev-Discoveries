@@ -3,6 +3,8 @@ type Query {
     employees: [Employee]
 
     getData: [Tables]
+
+    phones: [Phone]
 }
 
 type Book {
@@ -23,10 +25,10 @@ type Phone{
     name: String
     model: String
     price: Int
-    brand: String
+#    brand: String
 
     # we could also do
-#    brand: PhoneBrand
+    brand: PhoneBrand
 }
 
 type PhoneBrand{
