@@ -34,13 +34,129 @@ public class CruddemoApplication {
 
 //			createInstructorWithCourses(appDAO);
 //			findInstructorWithCourses(appDAO);
-			findCoursesForInstructor(appDAO);
+//			findCoursesForInstructorLazily(appDAO);
+
+//			findInstructorAndOthersByIdJoinFetch(appDAO);
+//			updateInstructor(appDAO);
+//			updateCourse(appDAO);
+//			deleteInstructor(appDAO);
+			deleteCourse(appDAO);
+
 		};
+	}
+
+	private void deleteCourse(AppDAO appDAO) {
+
+		int theId = 10;
+
+		System.out.println("Deleting course id: " + theId);
+
+		appDAO.deleteCourseById(theId);
+
+		System.out.println("Done!");
+	}
+
+	private void updateCourse(AppDAO appDAO) {
+
+		int theId = 10;
+
+		// find the course
+		System.out.println("Finding course id: " + theId);
+		Course tempCourse = appDAO.findCourseById(theId);
+
+		// update the course
+		System.out.println("Updating course id: " + theId);
+		tempCourse.setTitle("Enjoy the Simple Things");
+
+		appDAO.update(tempCourse);
+
+		System.out.println("Done!");
+	}
+
+	private void updateInstructor(AppDAO appDAO) {
+
+		// Update also calls other associated entities in the same transaction, and updates them as well if needed.
+		/*
+		Hibernate:
+			select
+				i1_0.id,
+				i1_0.email,
+				i1_0.first_name,
+				id1_0.id,
+				id1_0.hobby,
+				id1_0.youtube_channel,
+				i1_0.last_name,
+				c1_0.instructor_id,
+				c1_0.id,
+				c1_0.title
+			from
+				instructor i1_0
+			left join
+				instructor_detail id1_0
+					on id1_0.id=i1_0.instructor_detail_id
+			left join
+				course c1_0
+					on i1_0.id=c1_0.instructor_id
+			where
+				i1_0.id=?
+		 */
+
+		int theId = 1;
+
+		// find the instructor
+		System.out.println("Finding instructor id: " + theId);
+		Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+		// update the instructor
+		System.out.println("Updating instructor id: " + theId);
+		tempInstructor.setLastName("TESTER");
+
+		appDAO.update(tempInstructor);
+
+		System.out.println("Done!");
+	}
+
+	private void findInstructorAndOthersByIdJoinFetch(AppDAO appDAO) {
+		/*
+		Hibernate:
+			select
+				i1_0.id,
+				c1_0.instructor_id,
+				c1_0.id,
+				c1_0.title,
+				i1_0.email,
+				i1_0.first_name,
+				id1_0.id,
+				id1_0.hobby,
+				id1_0.youtube_channel,
+				i1_0.last_name
+			from
+				instructor i1_0
+			join
+				course c1_0
+					on i1_0.id=c1_0.instructor_id
+			join
+				instructor_detail id1_0
+					on id1_0.id=i1_0.instructor_detail_id
+			where
+				i1_0.id=?
+		 */
+
+		int theId = 1;
+
+		// find the instructor
+		System.out.println("Finding instructor id: " + theId);
+		Instructor tempInstructor = appDAO.findInstructorAndOthersByIdJoinFetch(theId);
+
+		System.out.println("tempInstructor: " + tempInstructor);
+		System.out.println("the associated courses: " + tempInstructor.getCourses());
+
+		System.out.println("Done!");
 	}
 
 
 	// Example of LAZY loading of courses for an instructor
-	private void findCoursesForInstructor(AppDAO appDAO) {
+	private void findCoursesForInstructorLazily(AppDAO appDAO) {
 
 		int theId = 1;
 		// find instructor
@@ -61,7 +177,10 @@ public class CruddemoApplication {
 
 		System.out.println("Done!");
 	}
-	private void findInstructorWithCourses(AppDAO appDAO) {
+
+
+	// Example of EAGER loading of courses for an instructor
+	private void findInstructorWithCoursesEagerly(AppDAO appDAO) {
 
 		/*
 
