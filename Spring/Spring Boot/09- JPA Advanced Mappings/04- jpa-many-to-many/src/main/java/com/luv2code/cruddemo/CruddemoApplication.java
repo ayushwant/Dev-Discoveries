@@ -1,11 +1,11 @@
 package com.luv2code.cruddemo;
 
 import com.luv2code.cruddemo.dao.AppDAO;
-import com.luv2code.cruddemo.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import com.luv2code.cruddemo.entity.*;
 
 import java.util.List;
 
@@ -25,7 +25,8 @@ public class CruddemoApplication {
 //			findStudentAndCourses(appDAO);
 //			addMoreCoursesForStudent(appDAO);
 //			deleteCourse(appDAO);
-			deleteStudent(appDAO);
+//			deleteStudent(appDAO);
+			System.out.println("Run a method!");
 		};
 	}
 
