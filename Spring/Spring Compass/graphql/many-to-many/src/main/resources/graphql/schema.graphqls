@@ -1,0 +1,52 @@
+type Course {
+    id: ID!
+    title: String
+    instructor: Instructor
+    students: [Student]
+    reviews: [Review]
+}
+
+#The CourseStudent and CourseStudentId classes are not included in the GraphQL schema
+#because they represent a join table and composite key,
+#which are typically not directly exposed in a GraphQL API.
+
+type Instructor {
+    id: ID!
+    firstName: String
+    lastName: String
+    email: String
+    instructorDetail: InstructorDetail
+    courses: [Course]
+}
+
+type InstructorDetail {
+    id: ID!
+    youtubeChannel: String
+    hobby: String
+    instructor: Instructor
+}
+
+type Review {
+    id: ID!
+    comment: String
+    course: Course
+}
+
+type Student {
+    id: ID!
+    firstName: String
+    lastName: String
+    email: String
+    courses: [Course]
+}
+
+type Query {
+    courses: [Course]
+    course(id: ID!): Course
+    instructors: [Instructor]
+    instructor(id: ID!): Instructor
+    reviews: [Review]
+    review(id: ID!): Review
+    students: [Student]
+    student(id: ID!): Student
+}
