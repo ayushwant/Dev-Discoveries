@@ -1,6 +1,7 @@
 package ayushwant.springwebflux.numbers;
 
 import org.springframework.stereotype.Service;
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -13,7 +14,7 @@ public class NumbersService {
         long startTime = System.currentTimeMillis();
 
         // Use subscribeOn to move this work to a new thread from the boundedElastic scheduler
-        getNumbers(total)
+        Flux<String> flux = getNumbers(total)
                 .subscribeOn(Schedulers.boundedElastic())  // Run on a background thread pool
                 .doOnComplete(() -> {
 
@@ -26,26 +27,39 @@ public class NumbersService {
                     long endTime = System.currentTimeMillis();
                     System.out.println("Service function completed after " + (endTime - startTime) + " ms");
                 })
-                .subscribe(System.out::println);
+                .doOnError(e -> System.out.println("Error: " + e.getMessage()));
 
-/*      The issue with this approach is that you're measuring the time immediately after calling the subscribe() method.
-        However, in a reactive flow, when you call subscribe(), the operation is performed asynchronously.
-        This means the flow hasn’t completed yet by the time you calculate the time difference between startTime and endTime.
-        To measure the time taken by the operation, you need to use the doOnComplete() or  method to calculate the time difference.
-        long endTime = System.currentTimeMillis();
+/*
+        Params:
+        consumer – the consumer to invoke on each value
+        errorConsumer – the consumer to invoke on error signal
+        completeConsumer – the consumer to invoke on complete signal
+        Returns:
+        a new Disposable that can be used to cancel the underlying
+*/
+        Disposable disposable = flux.subscribe(System.out::println,
+                e -> System.out.println("Error: " + e.getMessage()),
+                () -> {
+                    System.out.println("Completed");
+                });
 
-        System.out.println("Service function completed after " + (endTime - startTime) + " ms");
-        */
+        // this immediately disposes the subscription, and the process stops even before it starts.
+//        stopProcess(disposable);
     }
 
-    // this is still blocking, because the loop of the service function is running in the same thread.
-    public void printNumbersInBg(int total) {
-        getNumbers(total).subscribe(System.out::println);
+    public void stopProcess(Disposable disposable) {
+        // Dispose of the subscription when you want to stop the process
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+            System.out.println("Process stopped.");
+        }
     }
 
     public Flux<String> getNumbers(int total) {
 
         return Flux.create(sink -> {
+
+//            throw new RuntimeException("Error in service function");
 
             for (long i = 1; i <= total; i++)
                 for(long l = 1; l<=total; l++) {
@@ -54,6 +68,11 @@ public class NumbersService {
                 }
             sink.complete();
         });
+    }
+
+    // this is still blocking, because the loop of the service function is running in the same thread.
+    public void printNumbersInBg(int total) {
+        getNumbers(total).subscribe(System.out::println);
     }
 
     public Mono<Integer> getNumber(int total) {
