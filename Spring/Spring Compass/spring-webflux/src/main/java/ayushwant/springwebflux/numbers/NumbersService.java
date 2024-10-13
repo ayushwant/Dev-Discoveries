@@ -15,11 +15,27 @@ public class NumbersService {
         // Use subscribeOn to move this work to a new thread from the boundedElastic scheduler
         getNumbers(total)
                 .subscribeOn(Schedulers.boundedElastic())  // Run on a background thread pool
+                .doOnComplete(() -> {
+
+                    // perform a certain task after the operation is completed successfully.
+                    // won't be called if there are any errors.
+                    // if you wish to perform a task after the operation is completed,
+                    // regardless of whether it was successful or not, you can use the doFinally() or doOnTerminate() method.
+
+                    // also, doOnComplete() is called irrespective of the .subscribeOn(Schedulers.boundedElastic())
+                    long endTime = System.currentTimeMillis();
+                    System.out.println("Service function completed after " + (endTime - startTime) + " ms");
+                })
                 .subscribe(System.out::println);
 
+/*      The issue with this approach is that you're measuring the time immediately after calling the subscribe() method.
+        However, in a reactive flow, when you call subscribe(), the operation is performed asynchronously.
+        This means the flow hasn’t completed yet by the time you calculate the time difference between startTime and endTime.
+        To measure the time taken by the operation, you need to use the doOnComplete() or  method to calculate the time difference.
         long endTime = System.currentTimeMillis();
 
         System.out.println("Service function completed after " + (endTime - startTime) + " ms");
+        */
     }
 
     // this is still blocking, because the loop of the service function is running in the same thread.
