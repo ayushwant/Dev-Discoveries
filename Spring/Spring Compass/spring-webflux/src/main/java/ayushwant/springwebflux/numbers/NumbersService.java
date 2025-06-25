@@ -27,6 +27,7 @@ public class NumbersService {
                     long endTime = System.currentTimeMillis();
                     System.out.println("Service function completed after " + (endTime - startTime) + " ms");
                 })
+                .concatWith(Flux.error(new RuntimeException("An error occurred"))) // This line is used to concatenate an error signal to the end of the Flux sequence. Used for testing purposes
                 .doOnError(e -> System.out.println("Error: " + e.getMessage()));
 
 /*
