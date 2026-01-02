@@ -3,6 +3,7 @@ package ayushwant.manytomany.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.Set;
 }, uniqueConstraints = {
         @UniqueConstraint(name = "TITLE_UNIQUE", columnNames = {"title"})
 })
+//@ToString
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

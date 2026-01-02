@@ -1,0 +1,19 @@
+{
+    "fields": [
+        "Girl child name",
+        "Parent Name",
+        "Date of Birth",
+        "Date of Birth (in words)",
+        "Birth Certificate Number",
+        "Birth Certificate Issue Date",
+        "Birth Certificate Issue Authority",
+        "Parent ID Number",
+        "Parent ID Issue Date",
+        "Parent ID Issue Authority",
+        "Address",
+        "Address continued",
+        "Other KYC Documents",
+        "Bank Branch Name",
+        "Bank Branch City"
+    ]
+}

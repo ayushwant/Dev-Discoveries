@@ -1,0 +1,19 @@
+[
+    "Customer Id",
+    "Customer Name",
+    "CKYC Number if available",
+    "Current Residence Address",
+    "Current Residence Address continued",
+    "The above address is my communication address Yes No and Permanent Address Yes No",
+    "Country Code",
+    "Mobile No",
+    "Date of Birth",
+    "Nationality and Citizenship",
+    "Residency Permit and Passport issuing Country",
+    "Occupation",
+    "Country of Birth",
+    "Permanent Account Number PAN",
+    "Email Id",
+    "Date of Declaration",
+    "Place of Declaration"
+]

@@ -1,0 +1,26 @@
+{
+    "servers": {
+        "time": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-time"
+            ]
+        },
+        "spring-ai-mcp-weather": {
+            "command": "java",
+            "args": [
+                "-Dspring.ai.mcp.server.stdio=true",
+                "-jar",
+                "/Users/ayushwantgaurav/Projects/Dev-Discoveries/Spring/Spring Compass/mcp-servers/target/mcp-servers-0.0.1-SNAPSHOT.jar"
+            ]
+        },
+        "courses-mcp": {
+            "command": "java",
+            "args": [
+                "-Dspring.ai.mcp.server.stdio=true",
+                "-jar",
+                "/Users/ayushwantgaurav/Projects/Dev-Discoveries/Spring/Spring Compass/graphql/many-to-many/target/many-to-many-0.0.1-SNAPSHOT.jar"
+            ]
+        }
+    }
+}
